@@ -23,3 +23,16 @@ document.getElementById('location-form').addEventListener('submit', async functi
     document.getElementById('weather-display').innerHTML = `<p>Error: ${error.message}</p>`;
   }
 });
+
+function displayWeather(data) {
+  const current = data.currentConditions;
+  const html = `
+    <h2>Weather for ${data.resolvedAddress}</h2>
+    <p><strong>Temperature:</strong> ${current.temp}°C</p>
+    <p><strong>Precipitation:</strong> ${current.precip} mm</p>
+    <p><strong>Wind:</strong> ${current.windspeed} km/h</p>
+    <p><strong>Humidity:</strong> ${current.humidity}%</p>
+    <p><strong>Visibility:</strong> ${current.visibility} km</p>
+  `;
+  document.getElementById('weather-display').innerHTML = html;
+}
