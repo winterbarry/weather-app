@@ -26,6 +26,7 @@ document.getElementById('location-form').addEventListener('submit', async functi
 
 function displayWeather(data) {
   const current = data.currentConditions;
+
   const html = `
     <h2>Weather for ${data.resolvedAddress}</h2>
     <p><strong>Temperature:</strong> ${current.temp}°C</p>
@@ -34,5 +35,25 @@ function displayWeather(data) {
     <p><strong>Humidity:</strong> ${current.humidity}%</p>
     <p><strong>Visibility:</strong> ${current.visibility} km</p>
   `;
+
   document.getElementById('weather-display').innerHTML = html;
+  updateBackgroundColor(current.temp);
+}
+
+function updateBackgroundColor(tempCelsius) {
+  let color;
+
+  if (tempCelsius <= 10) {
+    color = '#001f3f'; 
+  } else if (tempCelsius <= 21) {
+    color = '#7FDBFF'; 
+  } else if (tempCelsius <= 30) {
+    color = '#0074D9'; 
+  } else if (tempCelsius <= 40) {
+    color = '#FFDC00'; 
+  } else {
+    color = '#FF851B'; 
+  }
+
+  document.body.style.backgroundColor = color;
 }
