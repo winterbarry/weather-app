@@ -34,11 +34,13 @@ function displayWeather(data) {
     <p><strong>Wind:</strong> ${current.windspeed} km/h</p>
     <p><strong>Humidity:</strong> ${current.humidity}%</p>
     <p><strong>Visibility:</strong> ${current.visibility} km</p>
+    <p><em>${generateWeatherDescription(current)}</em></p>
   `;
 
   document.getElementById('weather-display').innerHTML = html;
   updateBackgroundColor(current.temp);
 }
+
 
 function updateBackgroundColor(tempCelsius) {
   let color;
@@ -57,3 +59,62 @@ function updateBackgroundColor(tempCelsius) {
 
   document.body.style.backgroundColor = color;
 }
+
+function generateWeatherDescription(current) {
+  const { temp, precip, windspeed, humidity, visibility } = current;
+  let messages = [];
+
+  // temperature descriptions
+  if (temp >= 40) {
+    messages.push("It's extremely hot!");
+  } else if (temp >= 30) {
+    messages.push("It's quite warm.");
+  } else if (temp >= 20) {
+    messages.push("The temperature is moderate.");
+  } else if (temp >= 10) {
+    messages.push("It's a bit cool.");
+  } else {
+    messages.push("It's cold outside.");
+  }
+
+  // precipitation descriptions
+  if (precip > 10) {
+    messages.push("Heavy precipitation is occurring.");
+  } else if (precip > 0) {
+    messages.push("Light precipitation is occurring.");
+  } else {
+    messages.push("No precipitation at the moment.");
+  }
+
+  // windspeed descriptions
+  if (windspeed > 50) {
+    messages.push("Strong winds are blowing.");
+  } else if (windspeed > 20) {
+    messages.push("Moderate winds are present.");
+  } else {
+    messages.push("Winds are light.");
+  }
+
+  // humidity descriptions
+  if (humidity > 80) {
+    messages.push("High humidity levels.");
+  } else if (humidity < 30) {
+    messages.push("Low humidity levels.");
+  } else {
+    messages.push("Comfortable humidity levels.");
+  }
+
+  // visibility descriptions
+  if (visibility < 2) {
+    messages.push("Visibility is very poor. Travel with caution.");
+  } else if (visibility < 5) {
+    messages.push("Visibility is limited.");
+  } else if (visibility < 10) {
+    messages.push("Visibility is decent.");
+  } else {
+    messages.push("Visibility is excellent.");
+  }
+
+  return messages.join(' ');
+}
+
